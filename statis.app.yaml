@@ -1,0 +1,16 @@
+service: default
+runtime: python39
+entrypoint: gunicorn -b :$PORT main:app
+
+handlers:
+  - url: /(.*\.(js|css|png|jpg|jpeg|ico|json|svg|woff2|woff|ttf|eot|txt|map|xml))$
+    static_files: dist/\1
+    upload: dist/(.*\.(js|css|png|jpg|jpeg|ico|json|svg|woff2|woff|ttf|eot|txt|map|xml))$
+    http_headers:
+      Cache-Control: 'max-age=31536000'
+    secure: always
+
+  - url: /(.*)
+    static_files: dist/index.html
+    upload: dist/index.html
+    secure: always
