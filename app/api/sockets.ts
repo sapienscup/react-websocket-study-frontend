@@ -1,5 +1,5 @@
-const CHAT_HOST_LISTENER = `ws://${process.env.API_HOST ?? '34.27.97.178'}/chat/ws`
-const CHAT_HOST_WRITER = `ws://${process.env.API_HOST ?? '34.27.97.178'}/chat/ws/send`
+const CHAT_HOST_LISTENER = `ws://${process.env.API_HOST ?? '34.27.97.178'}:8080/chat/ws`
+const CHAT_HOST_WRITER = `ws://${process.env.API_HOST ?? '34.27.97.178'}:8080/chat/ws/send`
 
 class SingletonChatSocket {
   private static headers = {
