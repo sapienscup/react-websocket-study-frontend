@@ -36,5 +36,5 @@ class SingletonChatSocket {
 
 const singletonChatSocket = SingletonChatSocket.getInstance()
 
-export const chatListen = singletonChatSocket.ListenToChat()
-export const chatWrite = singletonChatSocket.WriteToChat()
+export const chatListen = process.env.APP_ENV === 'production' ? undefined : singletonChatSocket.ListenToChat()
+export const chatWrite = process.env.APP_ENV === 'production' ? undefined : singletonChatSocket.WriteToChat()
