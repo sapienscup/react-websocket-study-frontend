@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "next dev",
-    "dev": "cross-env next dev",
-    "build": "cross-env next build && cross-env NODE_OPTIONS='--experimental-json-modules'",
-    "serve": "next start",
-    "analyze": "cross-env ANALYZE=true next build",
-    "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@faker-js/faker": "^8.1.0",
