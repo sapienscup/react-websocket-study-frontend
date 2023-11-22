@@ -1,5 +1,5 @@
-const CHAT_HOST_LISTENER = `ws://${process.env.API_HOST}:${process.env.API_PORT}/chat/ws`
-const CHAT_HOST_WRITER = `ws://${process.env.API_HOST}:${process.env.API_PORT}/chat/ws/send`
+const CHAT_HOST_LISTENER = `ws://${process.env.API_HOST ?? 'localhost'}:${process.env.API_PORT ?? '8080'}/chat/ws`
+const CHAT_HOST_WRITER = `ws://${process.env.API_HOST ?? 'localhost'}:${process.env.API_PORT ?? '8080'}/chat/ws/send`
 
 class SingletonChatSocket {
   private static headers = {
@@ -36,5 +36,5 @@ class SingletonChatSocket {
 
 const singletonChatSocket = SingletonChatSocket.getInstance()
 
-export const chatListen = process.env.API_HOST === 'localhost' ? singletonChatSocket.ListenToChat() : undefined
-export const chatWrite = process.env.API_HOST === 'localhost' ? singletonChatSocket.WriteToChat() : undefined
+export const chatListen = singletonChatSocket.ListenToChat()
+export const chatWrite = singletonChatSocket.WriteToChat()
