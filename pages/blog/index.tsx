@@ -1,3 +1,4 @@
+import { getAllPosts } from '@/app/api/todos'
 import Layout from '@/app/layout'
 import CustomButton from '@/components/atoms/CustomButton'
 import type { NextPageWithLayout } from '@/pages/_app'
@@ -13,7 +14,7 @@ type GithubInfo = {
 }
 
 type RepoInfo = {
-  full_name: string
+  slug: string
 }
 
 type BlogInfo = {
@@ -40,11 +41,11 @@ const Blog: NextPageWithLayout = context => {
       <div className="grid grid-cols-5 gap-5 mx-5">
         {contextParsed.blog.repos.map((e: RepoInfo) => {
           return (
-            <div className="mx-3" key={e.full_name}>
+            <div className="mx-3" key={e.slug}>
               <CustomButton
-                text={e.full_name}
+                text={e.slug}
                 targetFunction={goToSlug}
-                targetProps={e.full_name}
+                targetProps={e.slug}
               ></CustomButton>
             </div>
           )
@@ -64,39 +65,21 @@ export const getStaticProps = (async context => {
     }
   })
 
-  const repos = await fetch('https://api.github.com/users/tonussi/repos', {
-    method: 'GET',
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer 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`,
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
-
   const infoObj = await info.json()
-  const reposObj = await repos.json()
-
-  let reposParsed: RepoInfo[] = []
   let infoParsed: GithubInfo = {} as GithubInfo
-
-  if (reposObj && reposObj.length) {
-    reposObj.forEach((element: any) => {
-      reposParsed.push({ full_name: element.full_name.split('/')[1] })
-    })
-  }
 
   if (infoObj) {
     infoParsed = {
-      avatar_url: infoObj.avatar_url,
-      bio: infoObj.bio,
-      name: infoObj.name,
-      login: infoObj.login
+      avatar_url: infoObj.avatar_url ?? null,
+      bio: infoObj.bio ?? null,
+      name: infoObj.name ?? null,
+      login: infoObj.login ?? null
     } as GithubInfo
   }
 
   let blog = {
     info: infoParsed,
-    repos: reposParsed
+    repos: await getAllPosts()
   } as BlogInfo
 
   return { props: { blog } }
