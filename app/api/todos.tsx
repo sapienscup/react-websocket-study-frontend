@@ -27,8 +27,31 @@ export const generateFakeTodos = (length: number): DailyTasks[] => {
   return tasksPerDays
 }
 
-export const getAllPosts = () => {
-  return []
+type Slug = {
+  slug: string
+}
+
+export const getAllPosts = async (): Promise<Slug[]> => {
+  const repos = await fetch('https://api.github.com/users/tonussi/repos', {
+    method: 'GET',
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer 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`,
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+
+  const reposObj = await repos.json()
+
+  let reposParsed: Slug[] = []
+
+  if (reposObj && reposObj.length) {
+    reposObj.forEach((element: any) => {
+      reposParsed.push({ slug: element.full_name.split('/')[1] })
+    })
+  }
+
+  return reposParsed
 }
 
 export const generateWords = (length: number): string[] => {

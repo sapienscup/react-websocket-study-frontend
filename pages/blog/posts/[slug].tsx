@@ -13,7 +13,7 @@ export const getStaticProps = (async context => {
     method: 'GET',
     headers: {
       Accept: 'application/vnd.github+json',
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
@@ -30,7 +30,7 @@ type Post = {
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts()
+  const posts = await getAllPosts()
 
   return {
     paths: posts.map((post: Post) => {
