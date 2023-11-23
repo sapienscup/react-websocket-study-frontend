@@ -8,7 +8,7 @@ import CustomButton from '@/components/atoms/CustomButton'
 import ChatInput from '@/components/atoms/ChatInput'
 import Switch from '@/components/atoms/Switch'
 import { fromUnixTime } from 'date-fns'
-import { flushSync } from 'react-dom'
+// import { flushSync } from 'react-dom'
 import Pusher from 'pusher-js'
 
 interface Sender {
@@ -30,7 +30,9 @@ class ChatMsgType {
   public static CONN_QTY: string = 'CONN_QTY'
 }
 
-// Pusher.logToConsole = true;
+Pusher.logToConsole = true;
+
+console.log(process.env)
 
 let pusher = new Pusher(`${process.env.PUBLIC_PUSHER_KEY ?? 'a08a9b5076a727a59ad8'}`, {
   cluster: `${process.env.PUBLIC_PUSHER_CLUSTER ?? 'mt1'}`
