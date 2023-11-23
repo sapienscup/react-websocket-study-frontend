@@ -101,7 +101,7 @@ const Chat: NextPageWithLayout = () => {
     }
 
     fetch(
-      `https://${process.env.API_HOST}/chat/send`,
+      'https://stingray-app-3xh5h.ondigitalocean.app/chat/send',
       {
         headers: {
           Accept: 'application/json',
