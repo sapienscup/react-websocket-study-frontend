@@ -89,10 +89,6 @@ const Chat: NextPageWithLayout = () => {
     } else {
       chatDiv?.scrollIntoView(false)
     }
-
-    return () => {
-      channel.unsubscribe()
-    }
   }, [messages, isLockChatBottomActive])
 
   const handleCallback = () => {
@@ -100,18 +96,15 @@ const Chat: NextPageWithLayout = () => {
       return
     }
 
-    fetch(
-      'https://stingray-app-3xh5h.ondigitalocean.app/chat/send',
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-Token': 'fake-super-secret-token'
-        },
-        method: 'POST',
-        body: JSON.stringify({ message: msgText })
-      }
-    )
+    fetch('https://stingray-app-3xh5h.ondigitalocean.app/chat/send', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Token': 'fake-super-secret-token'
+      },
+      method: 'POST',
+      body: JSON.stringify({ message: msgText })
+    })
       .then(function (res) {
         console.log(res)
       })
