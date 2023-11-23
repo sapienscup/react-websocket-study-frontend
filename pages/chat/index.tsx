@@ -91,7 +91,7 @@ const Chat: NextPageWithLayout = () => {
     }
 
     return () => {
-      pusher.unsubscribe(`${process.env.YOUR_CHANNEL_NAME ?? 'my-channel'}`)
+      channel.unsubscribe()
     }
   }, [messages, isLockChatBottomActive])
 
@@ -103,11 +103,11 @@ const Chat: NextPageWithLayout = () => {
     // if (chatWrite) {
     //   chatWrite.send(JSON.stringify({ message: msgText }))
     // }
-    pusher.send_event(
-      `${process.env.YOUR_EVENT_NAME ?? 'my-event'}`,
-      JSON.stringify({ message: msgText }),
-      `${process.env.YOUR_CHANNEL_NAME ?? 'my-channel'}`
-    )
+    channel.bind("pusher:subscription_succeeded", () => {
+      channel.trigger(`${process.env.YOUR_EVENT_NAME ?? 'my-event'}`, {
+        message: JSON.stringify({ message: msgText }),
+      });
+    });
 
     setMsgText('')
   }
