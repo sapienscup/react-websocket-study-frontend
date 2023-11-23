@@ -30,7 +30,7 @@ class ChatMsgType {
   public static CONN_QTY: string = 'CONN_QTY'
 }
 
-Pusher.logToConsole = true;
+Pusher.logToConsole = true
 
 console.log(process.env)
 
@@ -100,14 +100,26 @@ const Chat: NextPageWithLayout = () => {
       return
     }
 
-    // if (chatWrite) {
-    //   chatWrite.send(JSON.stringify({ message: msgText }))
-    // }
-    channel.bind("pusher:subscription_succeeded", () => {
-      channel.trigger(`${process.env.YOUR_EVENT_NAME ?? 'my-event'}`, {
-        message: JSON.stringify({ message: msgText }),
-      });
-    });
+    fetch(
+      `${process.env.API_HOST ? 'https' : 'http'}://${process.env.API_HOST ?? 'localhost'}:${
+        process.env.API_PORT ?? '8080'
+      }/chat/send`,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-Token': 'fake-super-secret-token'
+        },
+        method: 'POST',
+        body: JSON.stringify({ message: msgText })
+      }
+    )
+      .then(function (res) {
+        console.log(res)
+      })
+      .catch(function (res) {
+        console.log(res)
+      })
 
     setMsgText('')
   }
