@@ -74,6 +74,7 @@ const Chat: NextPageWithLayout = () => {
 
   useEffect(() => {
     channel.bind(`${process.env.YOUR_EVENT_NAME ?? 'my-event'}`, function (data: RootObject) {
+      console.log(data)
       setMessages([...messages, data])
     })
 
