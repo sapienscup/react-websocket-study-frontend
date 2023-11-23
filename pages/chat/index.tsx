@@ -101,9 +101,7 @@ const Chat: NextPageWithLayout = () => {
     }
 
     fetch(
-      `${process.env.API_HOST ? 'https' : 'http'}://${process.env.API_HOST ?? 'localhost'}:${
-        process.env.API_PORT ?? '8080'
-      }/chat/send`,
+      `https://${process.env.API_HOST}/chat/send`,
       {
         headers: {
           Accept: 'application/json',
