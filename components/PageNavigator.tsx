@@ -13,44 +13,36 @@ function PageNavigator() {
   }, []);
 
   return (
-    <div className="w-0 ml-3">
-      <Link href="/profile">
-        <div className='mb-2'>
+    <div className="grid grid-cols-2 gap-1 m-5">
+      <div>
+        <Link href="/profile">
           <CustomButton text={'perfil'}></CustomButton>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
-      <Link href="/settings">
-        <div className='mb-2'>
+      <div>
+        <Link href="/settings">
           <CustomButton text={'configurações'}></CustomButton>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
-      <Link href="/todos">
-        <div className='mb-2'>
+      <div>
+        <Link href="/todos">
           <CustomButton text={'afazeres'}></CustomButton>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
-      <Link href="/blog">
-        <div className='mb-2'>
+      <div>
+        <Link href="/blog">
           <CustomButton text={'blog'}></CustomButton>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
-      <Link href="/chat">
-        <div className='mb-2'>
+      <div>
+        <Link href="/chat">
           <CustomButton text={'chat'}></CustomButton>
-        </div>
-      </Link>
-
-      {arr.map((word, index) => {
-        {
-          return <div key={index} className='mb-2'>
-            <CustomButton text={word}></CustomButton>
-          </div>
-        }
-      })}
+        </Link>
+      </div>
     </div>
   )
 }

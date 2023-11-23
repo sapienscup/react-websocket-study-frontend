@@ -17,7 +17,7 @@ const TodoList = () => {
   const [height, setHeight] = useState(0)
 
   useEffect(() => {
-    const loadData = generateFakeTodos(15)
+    const loadData = generateFakeTodos(2)
     setTodoList(loadData)
 
 

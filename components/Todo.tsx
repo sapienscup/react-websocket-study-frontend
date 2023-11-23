@@ -15,7 +15,7 @@ function Todo(props: any) {
   useEffect(() => {
     setWidth(ref.current?.offsetWidth)
     setHeight(ref.current?.offsetHeight)
-  }, [])
+  }, [ref.current?.offsetHeight, ref.current?.offsetWidth])
 
   const [check, setCheck] = useState(Boolean(props.task.check))
 
