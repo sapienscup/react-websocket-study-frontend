@@ -70,9 +70,7 @@ const Chat = () => {
 
   useEffect(() => {
     channel.bind(`${process.env.YOUR_EVENT_NAME ?? 'my-event'}`, function (data: RootObject) {
-      flushSync(() => {
-        setMessages([...messages, data])
-      })
+      setMessages([...messages, data])
     })
 
     const chatDiv = chatRef.current.lastElementChild
