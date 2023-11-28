@@ -17,22 +17,32 @@ const Todos: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="text-2xl mx-5 mb-5">Perfil</div>
-      <div className='border border-gray-200 shadow-lg w-4/12 p-5 ml-5'>
-        <div>
-          Entrar
-        </div>
-        <div className='grid grid-cols-2'>
-          <div className='mt-5'>
-            <input placeholder="Usuário" className="border-blue-500" name="username" value={username}></input>
+      <div className='mx-5'>
+        <div className="text-2xl mb-5">Perfil</div>
+        <div className="border border-gray-200 shadow-lg w-fit p-5">
+          <div className='text-sm'>Entrar</div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="mt-5">
+              <input
+                placeholder="Usuário"
+                className="border-blue-500"
+                name="username"
+                onChange={e => setUsername(e.target.value)}
+              ></input>
+            </div>
+            <div className="mt-5">
+              <input
+                placeholder="Senha"
+                className="border-blue-500"
+                name="password"
+                onChange={e => setPassword(e.target.value)}
+              ></input>
+            </div>
+            <div className="mt-5">
+              <CustomButton text="Entrar" targetFunction={submit}></CustomButton>
+            </div>
+            <div className="text-blue-400 mt-5 text-center">Esqueceu a senha?</div>
           </div>
-          <div className='mt-5 ml-3'>
-            <input placeholder="Senha" className="border-blue-500" name="password" value={password}></input>
-          </div>
-          <div className='mt-5'>
-            <CustomButton text='Entrar' targetFunction={submit}></CustomButton>
-          </div>
-          <div className='text-blue-400 mt-5 ml-3 text-center'>Esqueceu a senha?</div>
         </div>
       </div>
     </>

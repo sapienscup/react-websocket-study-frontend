@@ -2,20 +2,12 @@ import Layout from '@/app/layout'
 import Loading from '@/components/atoms/Loading'
 import ThemeSwitch from '@/components/layout/ThemeSwitch'
 import type { NextPageWithLayout } from '@/pages/_app'
-import { useTranslations } from 'next-intl'
 import { useState, type ReactElement } from 'react'
 
 const Todos: NextPageWithLayout = () => {
   const [toggleLoading, setToggleLoading] = useState(false)
   const handleToggleLoading = () => {
     setToggleLoading(!toggleLoading)
-  }
-
-  const t = useTranslations('UserProfile')
-  const user = {
-    firstName: 'Usuári@ do Sistema',
-    memberSince: '2008',
-    numFollowers: '21'
   }
 
   return (
@@ -45,13 +37,6 @@ const Todos: NextPageWithLayout = () => {
             </div>
           )}
         </div>
-      </div>
-      <div>
-        <section>
-          <h1>{t('title', { firstName: user.firstName })}</h1>
-          <p>{t('membership', { memberSince: user.memberSince })}</p>
-          <p>{t('followers', { count: user.numFollowers })}</p>
-        </section>
       </div>
     </div>
   )
