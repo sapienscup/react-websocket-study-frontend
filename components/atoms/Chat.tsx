@@ -4,10 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import ChatInput from '@/components/atoms/ChatInput'
 import Switch from '@/components/atoms/Switch'
 import {
-  get_api_host,
-  get_api_port,
-  get_api_protocol,
-  get_api_token,
   get_public_pusher_cluster,
   get_public_pusher_key,
   get_pusher_channel_name,

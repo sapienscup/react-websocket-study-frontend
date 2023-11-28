@@ -2,12 +2,8 @@ import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import Layout from '@/app/layout'
 import { getAllPosts } from '@/app/api/todos'
 import { get_github_api_key } from '@/envs'
+import { Post, Repo } from '@/components/types'
 
-type Repo = {
-  name: string
-  stargazers_count: number
-  size: number
-}
 
 export const getStaticProps = (async context => {
   const res = await fetch(`https://api.github.com/repos/tonussi/${context.params?.slug}`, {
@@ -26,9 +22,6 @@ export const getStaticProps = (async context => {
   repo: Repo
 }>
 
-type Post = {
-  slug: string
-}
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()

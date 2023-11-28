@@ -33,3 +33,13 @@ export type BlogInfo = {
 export type ContextInfo = {
   blog: BlogInfo
 }
+
+export type Repo = {
+  name: string
+  stargazers_count: number
+  size: number
+}
+
+export type Post = {
+  slug: string
+}
