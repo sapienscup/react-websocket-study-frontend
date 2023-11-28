@@ -24,7 +24,7 @@ export default function RootLayout({ children, name = "App" }: { children: React
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
         <meta property="og:title" content={name} key={name} />
         <meta property="og:url" content="Canonical link preview URL"></meta>
-        <meta property="og:description" content="Link preview description" />
+        <meta property="og:description" content="Descrição de previsão para whatsapp" />
         <meta property="og:image" content="Link preview image URL"></meta>
         <meta property="description" content="Search engine description" />
         <meta property="twitter:description" content="Twitter link preview description"></meta>
