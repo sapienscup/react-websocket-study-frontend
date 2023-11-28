@@ -17,7 +17,7 @@ const Todos: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="text-2xl ml-5 mb-5">Perfil</div>
+      <div className="text-2xl mx-5 mb-5">Perfil</div>
       <div className='border border-gray-200 shadow-lg w-4/12 p-5 ml-5'>
         <div>
           Entrar
