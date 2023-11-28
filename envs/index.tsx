@@ -19,7 +19,7 @@ export const get_api_port = (): string => {
 }
 
 export const get_api_protocol = (): string => {
-  return process.env.API_HOST === 'localhost' ? 'http' : 'https'
+  return process.env.NODE_ENV === 'production' ? 'https' : 'http'
 }
 
 export const get_api_token = (): string => {
