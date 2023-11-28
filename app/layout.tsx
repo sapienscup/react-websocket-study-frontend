@@ -14,13 +14,15 @@ const websiteFont = Montserrat({
 })
 
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children, name = "App" }: { children: React.ReactNode, name: string }) {
   return (
     <ThemeProviders>
       <Head>
+        <title>{name}</title>
         <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
+        <meta property="og:title" content={name} key={name} />
       </Head>
 
       <main className={`${websiteFont.className} scroll-smooth`}>

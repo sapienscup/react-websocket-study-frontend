@@ -10,7 +10,7 @@ const Todos: NextPageWithLayout = () => {
  
 Todos.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout>
+    <Layout name="Afazeres">
       {page}
     </Layout>
   )

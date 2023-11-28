@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+'use client'
+
+import { Suspense, useEffect, useRef, useState } from 'react'
+import Loading from '../atoms/Loading'
 
 function TwoColumnGrid(props: any) {
   const { navigator, features } = props.children
@@ -22,7 +25,9 @@ function TwoColumnGrid(props: any) {
     <div ref={ref} className={layout}>
       <div className="border h-fit mt-5 py-5 rounded-lg drop-shadow-lg">{navigator}</div>
 
-      <div className="border h-full my-5 py-5 rounded-lg drop-shadow-lg">{features}</div>
+      <div className="border h-full my-5 py-5 rounded-lg drop-shadow-lg">
+        <Suspense fallback={<Loading></Loading>}>{features}</Suspense>
+      </div>
     </div>
   )
 }

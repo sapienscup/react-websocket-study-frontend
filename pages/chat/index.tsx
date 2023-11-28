@@ -10,7 +10,7 @@ const ChatPage: NextPageWithLayout = () => {
 }
 
 ChatPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
+  return <Layout name='Chat'>{page}</Layout>
 }
 
 export default ChatPage

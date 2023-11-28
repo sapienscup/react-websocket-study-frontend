@@ -4,7 +4,7 @@ const ChatInput = (props: ChatMessage) => {
   return (
     <input
       autoFocus={true}
-      autoComplete='on'
+      autoComplete="off"
       name="message"
       className="
         w-full

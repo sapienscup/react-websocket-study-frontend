@@ -1,11 +1,21 @@
-import { useState, useRef, useEffect } from 'react'
 import CustomButton from '@/components/atoms/CustomButton'
+import { useEffect, useRef, useState } from 'react'
 // import { chatListen, chatWrite } from '@/app/api/sockets'
 import ChatInput from '@/components/atoms/ChatInput'
 import Switch from '@/components/atoms/Switch'
+import {
+  get_api_host,
+  get_api_port,
+  get_api_protocol,
+  get_api_token,
+  get_public_pusher_cluster,
+  get_public_pusher_key,
+  get_pusher_channel_name,
+  get_pusher_event_name
+} from '@/envs'
 import { fromUnixTime } from 'date-fns'
-import { flushSync } from 'react-dom'
 import Pusher from 'pusher-js'
+import { chatApiSendMsg } from '@/app/api/chat'
 
 interface Sender {
   name: string
@@ -28,21 +38,20 @@ class ChatMsgType {
 
 Pusher.logToConsole = true
 
-console.log(process.env)
-
-let pusher = new Pusher(`${process.env.PUBLIC_PUSHER_KEY ?? 'a08a9b5076a727a59ad8'}`, {
-  cluster: `${process.env.PUBLIC_PUSHER_CLUSTER ?? 'mt1'}`
+let pusher = new Pusher(get_public_pusher_key(), {
+  cluster: get_public_pusher_cluster()
 })
 
-let channel = pusher.subscribe(`${process.env.YOUR_CHANNEL_NAME ?? 'my-channel'}`)
+let channel = pusher.subscribe(get_pusher_channel_name())
 
 const Chat = () => {
   let [messages, setMessages] = useState<RootObject[]>([])
   let chatRef = useRef<any>(null)
   let [msgText, setMsgText] = useState<string>('')
-  let [isColorMuted, setIsColorMuted] = useState(true)
-  let [isLockChatBottomActive, setIsLockChatBottomActive] = useState(true)
-  let [connQty, setConnQty] = useState(0)
+  let [isColorMuted, setIsColorMuted] = useState<boolean>(true)
+  let [isLockChatBottomActive, setIsLockChatBottomActive] = useState<boolean>(true)
+  let [connQty, setConnQty] = useState<number>(0)
+  let [chatResponseLoading, setChatResponseLoading] = useState<boolean>(false)
 
   // if (chatListen) {
   //   chatListen.onmessage = e => {
@@ -69,7 +78,7 @@ const Chat = () => {
   // }
 
   useEffect(() => {
-    channel.bind(`${process.env.YOUR_EVENT_NAME ?? 'my-event'}`, function (data: RootObject) {
+    channel.bind(get_pusher_event_name(), function (data: RootObject) {
       setMessages([...messages, data])
     })
 
@@ -78,8 +87,7 @@ const Chat = () => {
     if (isLockChatBottomActive) {
       chatDiv?.scrollIntoView({
         block: 'end',
-        inline: 'nearest',
-        behavior: 'instant'
+        behavior: 'smooth'
       })
     } else {
       chatDiv?.scrollIntoView(false)
@@ -91,21 +99,9 @@ const Chat = () => {
       return
     }
 
-    fetch('https://stingray-app-3xh5h.ondigitalocean.app/chat/send', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-Token': 'fake-super-secret-token'
-      },
-      method: 'POST',
-      body: JSON.stringify({ message: msgText })
-    })
-      .then(function (res) {
-        console.log(res)
-      })
-      .catch(function (res) {
-        console.log(res)
-      })
+    setChatResponseLoading(true)
+    chatApiSendMsg(msgText)
+    setChatResponseLoading(false)
 
     setMsgText('')
   }
@@ -197,10 +193,11 @@ const Chat = () => {
       <div className="text-2xl ml-5 mb-5">Chat</div>
       <div className="text-xs ml-5 mb-5">Connections: {connQty}</div>
       <div className="mx-5">
-        <div ref={chatRef} className="dark:bg-slate-800 h-[40rem] gap-10 text-xs overflow-y-scroll scrollbar">
+        <div ref={chatRef} className="dark:bg-slate-800 h-[20rem] gap-10 text-xs overflow-y-scroll scrollbar">
           {messages.map((m: RootObject, index) => {
             return <div key={`m-${index}`}>{logByType(m)}</div>
           })}
+          {chatResponseLoading ? <>...</> : <></>}
         </div>
         <div className="grid grid-rows-4 grid-flow-col gap-4 justify-items-end">
           <ChatInput message={msgText} onMessageChange={setMsgText}></ChatInput>

@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { Task, DailyTasks } from '@/components/types'
+import { get_github_api_key } from '@/envs'
 
 export const generateFakeTodo = (): Task => {
   return {
@@ -36,7 +37,7 @@ export const getAllPosts = async (): Promise<Slug[]> => {
     method: 'GET',
     headers: {
       Accept: 'application/vnd.github+json',
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer ${get_github_api_key()}`,
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })

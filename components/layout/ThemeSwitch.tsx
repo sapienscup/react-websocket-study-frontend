@@ -15,7 +15,7 @@ const ThemeSwitch = () => {
   }
 
   return (
-    <select value={theme} onChange={e => setTheme(e.target.value)}>
+    <select className="text-black rounded-lg border-blue-400" value={theme} onChange={e => setTheme(e.target.value)}>
       <option value="system">System</option>
       <option value="dark">Dark</option>
       <option value="light">Light</option>

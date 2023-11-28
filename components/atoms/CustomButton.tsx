@@ -1,5 +1,4 @@
 interface CustomButtonProps {
-  color?: string
   text: string
   targetFunction?: (props: any) => void
   targetProps?: any
@@ -19,6 +18,8 @@ function CustomButton(props: CustomButtonProps) {
       onKeyDown={(event) => event.key === 'Enter' && handleOnClick()}
       onClick={_ => handleOnClick()}
       className={`
+        w-full
+        h-full
         relative
         inline-flex
         items-center
