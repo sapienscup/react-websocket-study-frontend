@@ -23,6 +23,14 @@ export default function RootLayout({ children, name = "App" }: { children: React
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
         <meta property="og:title" content={name} key={name} />
+        <meta property="og:url" content="Canonical link preview URL"></meta>
+        <meta property="og:description" content="Link preview description" />
+        <meta property="og:image" content="Link preview image URL"></meta>
+        <meta property="description" content="Search engine description" />
+        <meta property="twitter:description" content="Twitter link preview description"></meta>
+        <meta property="twitter:title" content="Twitter link preview title"></meta>
+        <meta property="twitter:card" content="summary_large_image"></meta>
+        <meta property="twitter:image" content="Twitter link preview image URL"></meta>
       </Head>
 
       <main className={`${websiteFont.className} scroll-smooth`}>
