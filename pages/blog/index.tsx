@@ -1,31 +1,60 @@
 import { getAllPosts } from '@/app/api/todos'
 import Layout from '@/app/layout'
 import CustomButton from '@/components/atoms/CustomButton'
-import { BlogInfo, ContextInfo, GithubInfo, RepoInfo } from '@/components/types'
+import { BlogInfo, BlogPost, GithubInfo } from '@/components/types'
 import { get_github_api_key } from '@/envs'
 import type { NextPageWithLayout } from '@/pages/_app'
+import { useLazyQuery } from '@apollo/client'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/navigation'
-import type { ReactElement } from 'react'
+import { useState, type ReactElement } from 'react'
+import QueryPosts from './posts.gql'
 
-
-const Blog: NextPageWithLayout = context => {
-  const contextParsed = context as ContextInfo
+const Blog: NextPageWithLayout = () => {
   const router = useRouter()
+  const [posts, setPosts] = useState([])
 
   function goToSlug(full_name: string) {
     router.push(`/blog/posts/${full_name}`)
   }
 
+  const [getPosts] = useLazyQuery(QueryPosts, {
+    fetchPolicy: 'network-only',
+    onCompleted(data) {
+      setPosts(data.user.posts)
+    }
+  })
+
+  const postsByUserId = (id: string) => {
+    getPosts({
+      variables: {
+        id: id
+      }
+    })
+  }
+
   return (
     <>
       <div className="text-2xl ml-5 mb-5">Lucas Tonussi&apos;s Repositories</div>
+      <div className='ml-5 mb-5 w-12'>
+        <CustomButton text={"Get Posts"} targetFunction={postsByUserId} targetProps={1}></CustomButton>
+      </div>
 
       <div className="grid grid-cols-5 gap-5 mx-5">
-        {contextParsed.blog.repos.map((e: RepoInfo) => {
+        {posts.map((e: BlogPost) => {
           return (
-            <div className="mx-3" key={e.slug}>
-              <CustomButton text={e.slug} targetFunction={goToSlug} targetProps={e.slug}></CustomButton>
+            <div className="rounded-lg shadow-lg" key={e.id}>
+              <div className='grid grid-cols-1 gap-2 p-5'>
+                <h1 className='text-2xl'>
+                  {e.title}
+                </h1>
+                <p>
+                  {`${e.body.slice(0, 100)}...`}
+                </p>
+                <div className='w-fit flex justify-end'>
+                  <CustomButton text={"Ler"} targetFunction={goToSlug} targetProps={e.id}></CustomButton>
+                </div>
+              </div>
             </div>
           )
         })}
@@ -64,7 +93,9 @@ export const getStaticProps = (async context => {
 }>
 
 Blog.getLayout = function getLayout(page: ReactElement) {
-  return <Layout name="Blog">{page}</Layout>
+  return <Layout name="Blog">
+    {page}
+  </Layout>
 }
 
 export default Blog

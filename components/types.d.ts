@@ -51,3 +51,11 @@ export type Repo = {
 export type Post = {
   slug: string
 }
+
+export type BlogPost = {
+  id: string
+  title: string
+  body: string
+  createdAt: string
+  updatedAt: string
+}
