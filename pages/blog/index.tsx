@@ -38,16 +38,17 @@ const Blog: NextPageWithLayout = () => {
   return (
     <>
       <div className="text-2xl ml-5 mb-5">Lucas Tonussi&apos;s Repositories</div>
-      <div className='ml-5 mb-5 grid grid-cols-2 w-36'>
-        <div className='w-12'>
+      <div className='ml-5 mb-5 gap-3 grid grid-cols-1 w-36'>
+        <div>
+        Id do Usuário
+        </div>
+        <div className='grid grid-cols-2 gap-3'>
           <ChatInput
             message={userId}
             onMessageChange={setUserId}
             targetFunction={postsByUserId}
             targetProps={userId}
           ></ChatInput>
-        </div>
-        <div className='w-12'>
           <CustomButton text={"Get Posts"} targetFunction={postsByUserId} targetProps={userId}></CustomButton>
         </div>
       </div>
@@ -56,14 +57,14 @@ const Blog: NextPageWithLayout = () => {
         {posts.map((e: BlogPost) => {
           return (
             <div className="rounded-lg shadow-lg" key={e.id}>
-              <div className='grid grid-cols-1 gap-2 p-5'>
+              <div className='grid grid-rows-1 gap-2 p-5 place-content-end'>
                 <h1 className='text-2xl'>
                   {e.title}
                 </h1>
                 <p>
                   {`${e.body.slice(0, 100)}...`}
                 </p>
-                <div className='w-fit flex justify-end'>
+                <div className='w-fit'>
                   <CustomButton text={"Ler"} targetFunction={goToSlug} targetProps={e.id}></CustomButton>
                 </div>
               </div>
@@ -75,34 +76,34 @@ const Blog: NextPageWithLayout = () => {
   )
 }
 
-export const getStaticProps = (async context => {
-  const info = await fetch('https://api.github.com/users/tonussi', {
-    method: 'GET',
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${get_github_api_key()}`
-    }
-  })
+// export const getStaticProps = (async context => {
+//   const info = await fetch('https://api.github.com/users/tonussi', {
+//     method: 'GET',
+//     headers: {
+//       Accept: 'application/vnd.github+json',
+//       Authorization: `Bearer ${get_github_api_key()}`
+//     }
+//   })
 
-  const infoObj = await info.json()
-  let infoParsed: GithubInfo = {} as GithubInfo
+//   const infoObj = await info.json()
+//   let infoParsed: GithubInfo = {} as GithubInfo
 
-  infoParsed = {
-    avatar_url: infoObj.avatar_url,
-    bio: infoObj.bio,
-    name: infoObj.name,
-    login: infoObj.login
-  } as GithubInfo
+//   infoParsed = {
+//     avatar_url: infoObj.avatar_url,
+//     bio: infoObj.bio,
+//     name: infoObj.name,
+//     login: infoObj.login
+//   } as GithubInfo
 
-  let blog = {
-    info: infoParsed,
-    repos: await getAllPosts()
-  } as BlogInfo
+//   let blog = {
+//     info: infoParsed,
+//     repos: await getAllPosts()
+//   } as BlogInfo
 
-  return { props: { blog } }
-}) satisfies GetStaticProps<{
-  blog: BlogInfo
-}>
+//   return { props: { blog } }
+// }) satisfies GetStaticProps<{
+//   blog: BlogInfo
+// }>
 
 Blog.getLayout = function getLayout(page: ReactElement) {
   return <Layout name="Blog">
