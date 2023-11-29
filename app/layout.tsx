@@ -1,20 +1,18 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import ContainerCentral from '@/components/layout/ContainerCentral'
-import TwoColumnGrid from '@/components/layout/TwoColumnGrid'
 import PageNavigator from '@/components/PageNavigator'
+import ContainerCentral from '@/components/layout/ContainerCentral'
 import { ThemeProviders } from '@/components/layout/ThemeProviders'
+import TwoColumnGrid from '@/components/layout/TwoColumnGrid'
+import './globals.css'
 
 import { Montserrat } from 'next/font/google'
 import Head from 'next/head'
- 
+
 const websiteFont = Montserrat({
   weight: '400',
-  subsets: ['latin'],
+  subsets: ['latin']
 })
 
-
-export default function RootLayout({ children, name = "App" }: { children: React.ReactNode, name: string }) {
+export default function RootLayout({ children, name = 'App' }: { children: React.ReactNode; name: string }) {
   return (
     <ThemeProviders>
       <Head>

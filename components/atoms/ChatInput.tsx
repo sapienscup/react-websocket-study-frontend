@@ -1,8 +1,15 @@
 import { ChatMessage } from '../types'
 
 const ChatInput = (props: ChatMessage) => {
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter' && props.targetFunction) {
+      props.targetFunction(props.targetProps)
+    }
+  }
+
   return (
     <input
+      onKeyDown={event => handleKeyDown(event)}
       autoFocus={true}
       autoComplete="off"
       name="message"

@@ -196,7 +196,12 @@ const Chat = () => {
           {chatResponseLoading ? <>...</> : <></>}
         </div>
         <div className="grid grid-rows-4 grid-flow-col gap-4 justify-items-end">
-          <ChatInput message={msgText} onMessageChange={setMsgText}></ChatInput>
+          <ChatInput
+            message={msgText}
+            onMessageChange={setMsgText}
+            targetFunction={handleCallback}
+            targetProps={msgText}
+          ></ChatInput>
           <div className="absolute p-2">
             <CustomButton text="Enviar" targetFunction={handleCallback} targetProps={msgText}></CustomButton>
           </div>

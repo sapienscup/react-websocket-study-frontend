@@ -1,8 +1,4 @@
-interface CustomButtonProps {
-  text: string
-  targetFunction?: (props: any) => void
-  targetProps?: any
-}
+import { CustomButtonProps } from "../types"
 
 function CustomButton(props: CustomButtonProps) {
   const { text, targetFunction, targetProps } = props
@@ -13,9 +9,15 @@ function CustomButton(props: CustomButtonProps) {
     }
   }
 
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter' && targetFunction) {
+      targetFunction(targetProps)
+    }
+  }
+
   return (
     <button
-      onKeyDown={(event) => event.key === 'Enter' && handleOnClick()}
+      onKeyDown={event => handleKeyDown(event)}
       onClick={_ => handleOnClick()}
       className={`
         w-full
@@ -44,8 +46,10 @@ function CustomButton(props: CustomButtonProps) {
         font-medium
         shadow-sm shadow-indigo-500/50
         hover:bg-indigo-400
-      `}>
-        <span className="
+      `}
+    >
+      <span
+        className="
           relative
           px-2
           py-1
@@ -55,9 +59,10 @@ function CustomButton(props: CustomButtonProps) {
           dark:bg-gray-900
           rounded-md
           group-hover:bg-opacity-0
-        ">
-          {(text || '').toUpperCase()}
-        </span>
+        "
+      >
+        {(text || '').toUpperCase()}
+      </span>
     </button>
   )
 }

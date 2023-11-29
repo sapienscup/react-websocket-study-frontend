@@ -12,6 +12,14 @@ export interface DailyTasks {
 export type ChatMessage = {
   message: string
   onMessageChange?: (newType: string) => void
+  targetFunction?: (props: any) => void
+  targetProps?: any
+}
+
+export interface CustomButtonProps {
+  text: string
+  targetFunction?: (props: any) => void
+  targetProps?: any
 }
 
 export type GithubInfo = {
