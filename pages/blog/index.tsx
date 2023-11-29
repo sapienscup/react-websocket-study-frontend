@@ -9,10 +9,12 @@ import { GetStaticProps } from 'next'
 import { useRouter } from 'next/navigation'
 import { useState, type ReactElement } from 'react'
 import QueryPosts from './posts.gql'
+import ChatInput from '@/components/atoms/ChatInput'
 
 const Blog: NextPageWithLayout = () => {
   const router = useRouter()
   const [posts, setPosts] = useState([])
+  const [userId, setUserId] = useState('1')
 
   function goToSlug(full_name: string) {
     router.push(`/blog/posts/${full_name}`)
@@ -36,8 +38,18 @@ const Blog: NextPageWithLayout = () => {
   return (
     <>
       <div className="text-2xl ml-5 mb-5">Lucas Tonussi&apos;s Repositories</div>
-      <div className='ml-5 mb-5 w-12'>
-        <CustomButton text={"Get Posts"} targetFunction={postsByUserId} targetProps={1}></CustomButton>
+      <div className='ml-5 mb-5 grid grid-cols-2 w-36'>
+        <div className='w-12'>
+          <ChatInput
+            message={userId}
+            onMessageChange={setUserId}
+            targetFunction={postsByUserId}
+            targetProps={userId}
+          ></ChatInput>
+        </div>
+        <div className='w-12'>
+          <CustomButton text={"Get Posts"} targetFunction={postsByUserId} targetProps={userId}></CustomButton>
+        </div>
       </div>
 
       <div className="grid grid-cols-5 gap-5 mx-5">

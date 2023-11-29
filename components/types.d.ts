@@ -10,7 +10,7 @@ export interface DailyTasks {
 }
 
 export type ChatMessage = {
-  message: string
+  message: string | number
   onMessageChange?: (newType: string) => void
   targetFunction?: (props: any) => void
   targetProps?: any

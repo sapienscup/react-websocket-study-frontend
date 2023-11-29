@@ -1,4 +1,4 @@
-query getPosts($id: Int!) {
+query getPosts($id: ID!) {
   user(id: $id) {
     posts {
       id
