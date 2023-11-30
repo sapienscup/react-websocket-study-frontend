@@ -1,15 +1,12 @@
-import { getAllPosts } from '@/app/api/todos'
 import Layout from '@/app/layout'
+import ChatInput from '@/components/atoms/ChatInput'
 import CustomButton from '@/components/atoms/CustomButton'
-import { BlogInfo, BlogPost, GithubInfo } from '@/components/types'
-import { get_github_api_key } from '@/envs'
+import { BlogPost } from '@/components/types'
 import type { NextPageWithLayout } from '@/pages/_app'
 import { useLazyQuery } from '@apollo/client'
-import { GetStaticProps } from 'next'
 import { useRouter } from 'next/navigation'
 import { useState, type ReactElement } from 'react'
 import QueryPosts from './posts.gql'
-import ChatInput from '@/components/atoms/ChatInput'
 
 const Blog: NextPageWithLayout = () => {
   const router = useRouter()

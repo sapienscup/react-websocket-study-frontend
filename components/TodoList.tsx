@@ -1,12 +1,12 @@
 'use client'
 
+import { generateFakeTodos } from '@/app/api/todos'
 import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
-const Todo = dynamic(() => import('./Todo'))
-import { DailyTasks } from './types'
-import { generateFakeTodos } from '@/app/api/todos'
-import SizeCaption from './atoms/SizeCaption'
 import DayTasks from './atoms/DayTasks'
+import SizeCaption from './atoms/SizeCaption'
+import { DailyTasks } from './types'
+const Todo = dynamic(() => import('./Todo'))
 
 const TodoList = () => {
   const [tasksPerDay, setTodoList] = useState<DailyTasks[]>()
@@ -19,7 +19,6 @@ const TodoList = () => {
   useEffect(() => {
     const loadData = generateFakeTodos(2)
     setTodoList(loadData)
-
 
     setTimeout(() => {
       setWidth(ref.current?.offsetWidth)
