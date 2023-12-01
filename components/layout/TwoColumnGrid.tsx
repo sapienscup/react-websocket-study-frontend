@@ -26,7 +26,7 @@ function TwoColumnGrid(props: any) {
       <div className="border h-fit mt-5 py-5 rounded-lg drop-shadow-lg">{navigator}</div>
 
       <div className="border h-full my-5 py-5 rounded-lg drop-shadow-lg">
-        <Suspense fallback={<Loading></Loading>}>{features}</Suspense>
+        {features}
       </div>
     </div>
   )

@@ -1,8 +1,9 @@
-import type { ReactElement, ReactNode } from 'react'
+import { Suspense, type ReactElement, type ReactNode } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 import gqlClient from '@/app/api/graphql'
+import Loading from '@/components/atoms/Loading'
 
 export type NextPageWithLayout<Props = {}, InitialProps = Props> = NextPage<Props, InitialProps> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -18,7 +19,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
  
   return getLayout(
     <ApolloProvider client={gqlClient}>
-      <Component {...pageProps} />
+      <Suspense fallback={<Loading></Loading>}>
+        <Component {...pageProps} />
+      </Suspense>
     </ApolloProvider>
   )
 }

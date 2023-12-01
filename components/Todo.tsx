@@ -4,8 +4,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import SizeCaption from './atoms/SizeCaption'
 import { useTheme } from 'next-themes'
 import Switch from './atoms/Switch'
+import { TodoProps } from './types'
 
-function Todo(props: any) {
+function Todo(props: TodoProps) {
   const ref = useRef<any>(null)
   const { theme } = useTheme()
 

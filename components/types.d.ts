@@ -59,3 +59,8 @@ export type BlogPost = {
   createdAt: string
   updatedAt: string
 }
+
+export type TodoProps = {
+  task: Task,
+  handleChange: () => void
+}

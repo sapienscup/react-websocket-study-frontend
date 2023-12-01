@@ -1,6 +1,6 @@
-query getPosts($id: ID!) {
+query getPosts($id: ID!, $limit: Int, $offset: Int) {
   user(id: $id) {
-    posts {
+    posts(limit: $limit, offset: $offset) {
       id
       title
       body
