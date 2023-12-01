@@ -64,3 +64,9 @@ export type TodoProps = {
   task: Task,
   handleChange: (todoId: number) => void
 }
+
+export interface DayTasksProps {
+  date: Date,
+  tasks: any,
+  newLimit: () => void
+}
