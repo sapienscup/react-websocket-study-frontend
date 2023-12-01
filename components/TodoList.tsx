@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
 import DayTasks from './atoms/DayTasks'
 import SizeCaption from './atoms/SizeCaption'
-import { DailyTasks } from './types'
+import { DailyTasks, Task } from './types'
 const Todo = dynamic(() => import('./Todo'))
 
 const TodoList = () => {
@@ -15,6 +15,7 @@ const TodoList = () => {
 
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
+  const [currentTodoBeingChanged, setCurrentTodoBeingChanged] = useState<Task>()
 
   useEffect(() => {
     const loadData = generateFakeTodos(20)
@@ -38,9 +39,8 @@ const TodoList = () => {
         const todo = tasks[j]
 
         if (todo.id === todoId) {
-          console.table(todo)
           todo.check = !todo.check
-          console.table(todo)
+          setCurrentTodoBeingChanged(todo)
         }
       }
     }
@@ -77,6 +77,7 @@ const TodoList = () => {
     return (
       <div className="mx-5">
         <div className="text-3xl mb-5">Afazeres</div>
+
         <div
           ref={ref}
           className={`${todolist.length > 30 ? 'h-screen' : 'h-fit'} pr-3 ${
