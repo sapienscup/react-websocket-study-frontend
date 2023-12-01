@@ -26,7 +26,7 @@ const TodoList = () => {
     },  0)
   }, [])
 
-  function handleChange(todoEventId: number) {
+  function handleChange(todoId: number) {
     if (!tasksPerDay) {
       return
     }
@@ -37,7 +37,7 @@ const TodoList = () => {
       for (let j = 0; j < tasks.length; j++) {
         const todo = tasks[j]
 
-        if (todo.id === todoEventId) {
+        if (todo.id === todoId) {
           todo.check = !todo.check
         }
       }

@@ -62,5 +62,5 @@ export type BlogPost = {
 
 export type TodoProps = {
   task: Task,
-  handleChange: () => void
+  handleChange: (todoId: number) => void
 }

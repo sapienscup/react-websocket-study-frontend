@@ -21,7 +21,7 @@ function Todo(props: TodoProps) {
   const [check, setCheck] = useState(Boolean(props.task.check))
 
   function handleChange() {
-    props.handleChange()
+    props.handleChange(props.task.id)
 
     setCheck(!check)
   }
