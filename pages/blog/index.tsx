@@ -46,7 +46,7 @@ const Blog: NextPageWithLayout = () => {
             targetFunction={postsByUserId}
             targetProps={userId}
           ></ChatInput>
-          <CustomButton text={"Get Posts"} targetFunction={postsByUserId} targetProps={userId}></CustomButton>
+          <CustomButton text={"Get Posts (Graphql)"} targetFunction={postsByUserId} targetProps={userId}></CustomButton>
         </div>
       </div>
 
