@@ -17,7 +17,7 @@ const TodoList = () => {
   const [height, setHeight] = useState(0)
 
   useEffect(() => {
-    const loadData = generateFakeTodos(2)
+    const loadData = generateFakeTodos(20)
     setTodoList(loadData)
 
     setTimeout(() => {
@@ -38,13 +38,15 @@ const TodoList = () => {
         const todo = tasks[j]
 
         if (todo.id === todoId) {
+          console.table(todo)
           todo.check = !todo.check
+          console.table(todo)
         }
       }
     }
   }
 
-  const fetchTodoListFromApi = (todolist: DailyTasks[] | undefined) => {
+  const prepareTodosListComponents = (todolist: DailyTasks[] | undefined) => {
     let days = []
     let tasks = []
     let index = 0
@@ -88,7 +90,7 @@ const TodoList = () => {
     )
   }
 
-  return <div className="text-left">{fetchTodoListFromApi(tasksPerDay)}</div>
+  return <div className="text-left">{prepareTodosListComponents(tasksPerDay)}</div>
 }
 
 export default TodoList

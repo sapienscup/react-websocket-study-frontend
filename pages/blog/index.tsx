@@ -51,7 +51,7 @@ const Blog: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-5 h-screen mx-5 pr-3 overflow-y-scroll scrollbar">
+      <div className="grid grid-cols-5 gap-5 max-h-96 mx-5 pr-3 overflow-y-scroll scrollbar">
         {posts.map((e: BlogPost) => {
           return (
             <div className="rounded-lg shadow-lg" key={e.id}>
