@@ -24,7 +24,7 @@ const TodoList = () => {
     setTimeout(() => {
       setWidth(ref.current?.offsetWidth)
       setHeight(ref.current?.offsetHeight)
-    },  0)
+    }, 0)
   }, [])
 
   function handleChange(todoId: number) {
@@ -71,7 +71,9 @@ const TodoList = () => {
       }
 
       dayIndex += 1
-      days.push(<DayTasks key={`day-${dayIndex}`} date={dailyTasks.date} tasks={tasks}></DayTasks>)
+      days.push(
+        <DayTasks newLimit={() => null} key={`day-${dayIndex}`} date={dailyTasks.date} tasks={tasks}></DayTasks>
+      )
     }
 
     return (
