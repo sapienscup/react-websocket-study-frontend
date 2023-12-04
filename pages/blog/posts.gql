@@ -1,11 +1,16 @@
-query getPosts($id: ID!, $limit: Int, $offset: Int) {
-  user(id: $id) {
+query Posts($userId: ID!, $limit: Int, $offset: Int) {
+  user(userId: $userId) {
     posts(limit: $limit, offset: $offset) {
-      id
-      title
-      body
-      createdAt
-      updatedAt
+      items {
+        id
+        title
+        body
+        user {
+          name
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 }

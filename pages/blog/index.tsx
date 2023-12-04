@@ -6,10 +6,12 @@ import type { NextPageWithLayout } from '@/pages/_app'
 import { useLazyQuery } from '@apollo/client'
 import { useState, type ReactElement } from 'react'
 import QueryPosts from './posts.gql'
+import { useRecoilState } from 'recoil'
 
 const Blog: NextPageWithLayout = () => {
   const [posts, setPosts] = useState([])
   const [userId, setUserId] = useState('1')
+  const [pageLimit, setPageLimit] = useState('1')
   const [postToRead, setPostToRead] = useState<BlogPost>()
 
   function openDialog(post: BlogPost) {
@@ -19,48 +21,70 @@ const Blog: NextPageWithLayout = () => {
   const [getPosts] = useLazyQuery(QueryPosts, {
     fetchPolicy: 'network-only',
     onCompleted(data) {
-      setPosts(data.user.posts)
+      setPosts(data.user.posts.items)
     }
   })
 
-  const postsByUserId = (id: string) => {
+  const postsByUserIdLimitOffset = (id: string) => {
     getPosts({
       variables: {
-        id: id,
-        limit: null,
-        offset: null
+        userId: id || '1',
+        limit: parseInt(pageLimit),
+        offset: 1
       }
     })
   }
 
   return (
     <>
-      <div className="text-2xl ml-5 mb-5">Lucas Tonussi&apos;s Repositories</div>
-      <div className="ml-5 mb-5 gap-3 grid grid-cols-1 w-36">
-        <div>Id do Usuário</div>
-        <div className="grid grid-cols-2 gap-3">
-          <ChatInput
-            message={userId}
-            onMessageChange={setUserId}
-            targetFunction={postsByUserId}
-            targetProps={userId}
-          ></ChatInput>
-          <div className='w-20'>
-            <CustomButton text={'Get Posts (Graphql)'} targetFunction={postsByUserId} targetProps={userId}></CustomButton>
+      <div className="text-2xl ml-5 mb-5">
+        Lucas Tonussi&apos; <div className="text-xs">(Graphql / Cassandra)</div>
+      </div>
+      <div className="ml-5 mb-5 gap-3 grid grid-cols-2">
+        <div>
+          <div>Id do Usuário</div>
+          <div className="grid grid-cols-2 gap-3">
+            <ChatInput
+              message={userId}
+              onMessageChange={setUserId}
+              targetFunction={postsByUserIdLimitOffset}
+              targetProps={userId}
+            ></ChatInput>
+            <div className="w-20">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div>Limite página</div>
+          <div className="grid grid-cols-2 gap-3">
+            <ChatInput
+              message={pageLimit}
+              onMessageChange={setPageLimit}
+              targetFunction={postsByUserIdLimitOffset}
+              targetProps={pageLimit}
+            ></ChatInput>
+            <div className="w-20">
+              <CustomButton
+                text={'Get Posts (Graphql)'}
+                targetFunction={postsByUserIdLimitOffset}
+                targetProps={pageLimit}
+              ></CustomButton>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-5 max-h-96 mx-5 pr-3 overflow-y-scroll scrollbar">
+      <div className="grid grid-cols-5 max-h-60 gap-5 py-10 mx-5 pr-3 overflow-y-scroll scrollbar">
         {posts.map((e: BlogPost) => {
           return (
             <div className="rounded-lg shadow-lg" key={e.id}>
-              <div className="grid grid-rows-1 gap-2 p-5 place-content-end">
+              <div className="grid grid-rows-1 gap-2 p-5 place-content-start">
                 <h1 className="text-xl">{e.title}</h1>
-                <p>{`${e.body.slice(0, 100)}...`}</p>
-                <div className="w-fit">
-                  <CustomButton text={'Ler'} targetFunction={openDialog} targetProps={e}></CustomButton>
-                </div>
+                <p>{`${e.body.slice(0, 250)}...`}</p>
+              </div>
+              <div className="grid grid-rows-1 gap-2 p-5 place-content-end">
+                <CustomButton text={'Ler'} targetFunction={openDialog} targetProps={e}></CustomButton>
               </div>
             </div>
           )
@@ -100,9 +124,7 @@ const Blog: NextPageWithLayout = () => {
 // }>
 
 Blog.getLayout = function getLayout(page: ReactElement) {
-  return <Layout name="Blog">
-    {page}
-  </Layout>
+  return <Layout name="Blog">{page}</Layout>
 }
 
 export default Blog
