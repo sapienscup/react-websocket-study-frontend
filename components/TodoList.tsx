@@ -46,6 +46,10 @@ const TodoList = () => {
     }
   }
 
+  function adjustVirtualWindow(intersected: boolean, index: number) {
+    console.log(intersected, index)
+  }
+
   const prepareTodosListComponents = (todolist: DailyTasks[] | undefined) => {
     let days = []
     let tasks = []
@@ -74,7 +78,7 @@ const TodoList = () => {
       days.push(
         <DayTasks
           id={dayIndex}
-          newLimit={() => null}
+          adjustVirtualWindow={adjustVirtualWindow}
           key={`day-${dayIndex}`}
           date={dailyTasks.date}
           tasks={tasks}
