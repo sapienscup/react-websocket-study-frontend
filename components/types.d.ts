@@ -66,7 +66,8 @@ export type TodoProps = {
 }
 
 export interface DayTasksProps {
+  id: number
   date: Date,
   tasks: any,
-  newLimit: () => void
+  adjustVirtualWindow: (boolean, number) => void
 }

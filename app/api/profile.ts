@@ -13,6 +13,6 @@ export const enterChat = async (props: LoginProps) => {
       'X-Token': get_api_token()
     },
     method: 'POST',
-    body: JSON.stringify({ props })
+    body: JSON.stringify({ ...props })
   })
 }

@@ -12,8 +12,9 @@ const DayTasks = (props: DayTasksProps) => {
     }
   
     const observer = new IntersectionObserver(([entry]) => {
+      console.log(entry.isIntersecting, props.id)
       if (isLast && entry.isIntersecting) {
-        props.newLimit();
+        props.adjustVirtualWindow(entry.isIntersecting, props.id);
         observer.unobserve(entry.target);
       }
     });

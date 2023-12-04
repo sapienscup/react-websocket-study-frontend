@@ -18,7 +18,7 @@ const TodoList = () => {
   const [currentTodoBeingChanged, setCurrentTodoBeingChanged] = useState<Task>()
 
   useEffect(() => {
-    const loadData = generateFakeTodos(20)
+    const loadData = generateFakeTodos(100)
     setTodoList(loadData)
 
     setTimeout(() => {
@@ -72,7 +72,13 @@ const TodoList = () => {
 
       dayIndex += 1
       days.push(
-        <DayTasks newLimit={() => null} key={`day-${dayIndex}`} date={dailyTasks.date} tasks={tasks}></DayTasks>
+        <DayTasks
+          id={dayIndex}
+          newLimit={() => null}
+          key={`day-${dayIndex}`}
+          date={dailyTasks.date}
+          tasks={tasks}
+        ></DayTasks>
       )
     }
 
