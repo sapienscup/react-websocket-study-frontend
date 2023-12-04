@@ -40,39 +40,30 @@ const Blog: NextPageWithLayout = () => {
       <div className="text-2xl ml-5 mb-5">
         Lucas Tonussi&apos; <div className="text-xs">(Graphql / Cassandra)</div>
       </div>
-      <div className="ml-5 mb-5 gap-3 grid grid-cols-2">
+      <div className="ml-5 mb-5 gap-5 grid grid-cols-1 w-60 place-content-start rounded-lg border border-zinc-100 shadow-lg p-5">
         <div>
-          <div>Id do Usuário</div>
-          <div className="grid grid-cols-2 gap-3">
-            <ChatInput
-              message={userId}
-              onMessageChange={setUserId}
-              targetFunction={postsByUserIdLimitOffset}
-              targetProps={userId}
-            ></ChatInput>
-            <div className="w-20">
-            </div>
-          </div>
+          <div className="text-xs text-gray-400 mb-2">Id do Usuário</div>
+          <ChatInput
+            message={userId}
+            onMessageChange={setUserId}
+            targetFunction={postsByUserIdLimitOffset}
+            targetProps={userId}
+          ></ChatInput>
         </div>
-
         <div>
-          <div>Limite página</div>
-          <div className="grid grid-cols-2 gap-3">
-            <ChatInput
-              message={pageLimit}
-              onMessageChange={setPageLimit}
-              targetFunction={postsByUserIdLimitOffset}
-              targetProps={pageLimit}
-            ></ChatInput>
-            <div className="w-20">
-              <CustomButton
-                text={'Get Posts (Graphql)'}
-                targetFunction={postsByUserIdLimitOffset}
-                targetProps={pageLimit}
-              ></CustomButton>
-            </div>
-          </div>
+          <div className="text-xs text-gray-400 mb-2">Limite página</div>
+          <ChatInput
+            message={pageLimit}
+            onMessageChange={setPageLimit}
+            targetFunction={postsByUserIdLimitOffset}
+            targetProps={pageLimit}
+          ></ChatInput>
         </div>
+        <CustomButton
+          text={'Buscar posts'}
+          targetFunction={postsByUserIdLimitOffset}
+          targetProps={pageLimit}
+        ></CustomButton>
       </div>
 
       <div className="grid grid-cols-5 max-h-60 gap-5 py-10 mx-5 pr-3 overflow-y-scroll scrollbar">
