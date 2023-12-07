@@ -6,7 +6,8 @@ export const generateFakeTodo = (): Task => {
   return {
     id: faker.number.int(10e6),
     check: faker.datatype.boolean(),
-    description: faker.lorem.sentences(1)
+    description: faker.lorem.sentences(1),
+    changedHowManyTimes: 0
   }
 }
 
@@ -22,7 +23,7 @@ export const generateFakeTodos = (length: number): DailyTasks[] => {
       tasks.push(generateFakeTodo())
     }
 
-    tasksPerDays.push({ tasks: tasks, date: new Date(2023, i, 1) })
+    tasksPerDays.push({ tasks: tasks, date: new Date(2023, i, 1), isLast: false })
   }
 
   return tasksPerDays
@@ -73,4 +74,28 @@ export const generateWords = (length: number): string[] => {
     'umerus',
     'acervus'
   ]
+}
+
+export class DailyTasksService {
+  private todos: DailyTasks[] = []
+
+  constructor() {
+    this.todos = generateFakeTodos(100)
+  }
+
+  startWith = (len: number) => {
+    const todos = this.todos.slice(0, len)
+    todos[todos.length - 1].isLast = true
+    return todos
+  }
+
+  appendMore = (len: number) => {
+    const todos = this.todos.slice(0, len)
+    todos[todos.length - 1].isLast = true
+    return todos
+  }
+
+  fromIndex = (index: number) => {
+    return [this.todos[index]]
+  }
 }

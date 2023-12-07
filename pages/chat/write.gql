@@ -1,0 +1,3 @@
+subscription SendMessage($msg: String!) {
+  chatWrite(msg: $msg)
+}

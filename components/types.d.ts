@@ -2,11 +2,13 @@ export interface Task {
   id: number
   check: boolean
   description: string
+  changedHowManyTimes: number
 }
 
 export interface DailyTasks {
   tasks: Task[]
-  date: Date
+  date: date
+  isLast: boolean
 }
 
 export type ChatMessage = {
@@ -65,9 +67,15 @@ export type TodoProps = {
   handleChange: (todoId: number) => void
 }
 
+export type Intersecting = {
+  isIntersecting: boolean
+  id: number
+}
+
 export interface DayTasksProps {
   id: number
-  date: Date,
+  date: date,
   tasks: any,
+  isLast: boolean
   adjustVirtualWindow: (boolean, number) => void
 }

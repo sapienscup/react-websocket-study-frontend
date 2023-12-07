@@ -14,13 +14,13 @@
 
 /* Handle */
 .scrollbar::-webkit-scrollbar-thumb {
-  background: #6366F1;
+  background: #6366f1;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #6366F1;
+  background: #6366f1;
 }
 
 .thought {
@@ -56,3 +56,9 @@
 --french-gray: #afa9abff;
 --azure-web: #daf0f9ff;
 --english-violet: #463f6aff; */
+
+.remove-content-editable-border {
+  [contenteditable] {
+    border: 0px solid transparent;
+  }
+}

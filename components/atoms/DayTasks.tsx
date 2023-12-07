@@ -4,15 +4,17 @@ import { DayTasksProps } from "../types";
 
 const DayTasks = (props: DayTasksProps) => {
   const cardRef = useRef<any>()
-  const [isLast, setIsLast] = useState()
+  const [isLast, setIsLast] = useState<boolean>(false)
 
   useEffect(() => {
     if (!cardRef?.current) {
       return;
     }
-  
+
+    setIsLast(props.isLast)
+
     const observer = new IntersectionObserver(([entry]) => {
-      console.log(entry.isIntersecting, props.id)
+      console.log(isLast, entry.isIntersecting)
       if (isLast && entry.isIntersecting) {
         props.adjustVirtualWindow(entry.isIntersecting, props.id);
         observer.unobserve(entry.target);

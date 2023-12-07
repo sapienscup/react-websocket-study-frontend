@@ -4,6 +4,9 @@ import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 import gqlClient from '@/app/api/graphql'
 import Loading from '@/components/atoms/Loading'
+import { Provider, Provider as ReduxProvider } from 'react-redux'
+import { store } from '@/app/store'
+
 
 export type NextPageWithLayout<Props = {}, InitialProps = Props> = NextPage<Props, InitialProps> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -19,8 +22,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
  
   return getLayout(
     <ApolloProvider client={gqlClient}>
+      <Provider store={store}>
+
+      </Provider>
       <Suspense fallback={<Loading></Loading>}>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
       </Suspense>
     </ApolloProvider>
   )

@@ -1,3 +1,5 @@
+import { get_app_env } from '@/envs'
+
 const CHAT_HOST_LISTENER = `ws://${process.env.API_HOST ?? 'localhost'}:${process.env.API_PORT ?? '8080'}/chat/ws`
 const CHAT_HOST_WRITER = `ws://${process.env.API_HOST ?? 'localhost'}:${process.env.API_PORT ?? '8080'}/chat/ws/send`
 
@@ -34,7 +36,37 @@ class SingletonChatSocket {
   }
 }
 
-const singletonChatSocket = SingletonChatSocket.getInstance()
+let singletonChatSocket: SingletonChatSocket
+let chatListen
+let chatWrite
 
-export const chatListen = process.env.APP_ENV === 'production' ? undefined : singletonChatSocket.ListenToChat()
-export const chatWrite = process.env.APP_ENV === 'production' ? undefined : singletonChatSocket.WriteToChat()
+if (get_app_env() === 'development') {
+  singletonChatSocket = SingletonChatSocket.getInstance()
+  chatListen = singletonChatSocket.ListenToChat()
+  chatWrite = singletonChatSocket.WriteToChat()
+}
+
+  // if (get_app_env() === 'development') {
+  //   if (chatWebsockets.chatListen) {
+  //     chatWebsockets.chatListen.onmessage = e => {
+  //       const incMessage = JSON.parse(e.data)
+  
+  //       if (incMessage) {
+  //         setMessages([...messages, incMessage])
+  //       }
+  //     }
+  //   }
+  
+  //   if (chatWebsockets.chatWrite) {
+  //     chatWebsockets.chatWrite.onmessage = e => {
+  //       const incMessage = JSON.parse(e.data)
+  
+  //       if (incMessage) {
+  //         setMessages([...messages, incMessage])
+  //       }
+  //     }
+  //   }
+  // }
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { chatListen: chatListen, chatWrite: chatWrite }

@@ -6,7 +6,6 @@ import type { NextPageWithLayout } from '@/pages/_app'
 import { useLazyQuery } from '@apollo/client'
 import { useState, type ReactElement } from 'react'
 import QueryPosts from './posts.gql'
-import { useRecoilState } from 'recoil'
 
 const Blog: NextPageWithLayout = () => {
   const [posts, setPosts] = useState([])
@@ -75,6 +74,7 @@ const Blog: NextPageWithLayout = () => {
                 <p>{`${e.body.slice(0, 250)}...`}</p>
               </div>
               <div className="grid grid-rows-1 gap-2 p-5 place-content-end">
+                <div></div>
                 <CustomButton text={'Ler'} targetFunction={openDialog} targetProps={e}></CustomButton>
               </div>
             </div>

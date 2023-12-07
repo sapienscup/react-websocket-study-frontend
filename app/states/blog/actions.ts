@@ -1,0 +1,2 @@
+export const POSTS_UPDATE_LIST = 'POSTS_UPDATE_LIST'
+export const POSTS_GET_LIST = 'POSTS_GET_LIST'

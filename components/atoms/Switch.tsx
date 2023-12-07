@@ -28,7 +28,7 @@ const Switch = (props: SwitchProps) => {
             outline-none
             peer-focus:ring-3
             peer-focus:ring-indigo-300
-            dark:peer-focus:ring-indigo-500
+            dark:peer-focus:ring-indigo-600
             rounded-full
             peer-checked:after:translate-x-full
             rtl:peer-checked:after:-translate-x-full

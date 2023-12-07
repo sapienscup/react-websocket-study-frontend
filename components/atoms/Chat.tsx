@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import ChatInput from '@/components/atoms/ChatInput'
 import Switch from '@/components/atoms/Switch'
 import {
+  get_app_env,
   get_public_pusher_cluster,
   get_public_pusher_key,
   get_pusher_channel_name,
@@ -32,13 +33,18 @@ class ChatMsgType {
   public static CONN_QTY: string = 'CONN_QTY'
 }
 
-Pusher.logToConsole = true
+let channel: any = undefined
+let pusher: any = undefined
 
-let pusher = new Pusher(get_public_pusher_key(), {
-  cluster: get_public_pusher_cluster()
-})
+if (get_app_env() === 'production') {
+  Pusher.logToConsole = true
 
-let channel = pusher.subscribe(get_pusher_channel_name())
+  pusher = new Pusher(get_public_pusher_key(), {
+    cluster: get_public_pusher_cluster()
+  })
+
+  channel = pusher.subscribe(get_pusher_channel_name())
+}
 
 const Chat = () => {
   let [messages, setMessages] = useState<RootObject[]>([])
@@ -49,34 +55,12 @@ const Chat = () => {
   let [connQty, setConnQty] = useState<number>(0)
   let [chatResponseLoading, setChatResponseLoading] = useState<boolean>(false)
 
-  // if (chatListen) {
-  //   chatListen.onmessage = e => {
-  //     const incMessage = JSON.parse(e.data)
-
-  //     if (incMessage) {
-  //       flushSync(() => {
-  //         setMessages([...messages, incMessage])
-  //       })
-  //     }
-  //   }
-  // }
-
-  // if (chatWrite) {
-  //   chatWrite.onmessage = e => {
-  //     const incMessage = JSON.parse(e.data)
-
-  //     if (incMessage) {
-  //       flushSync(() => {
-  //         setMessages([...messages, incMessage])
-  //       })
-  //     }
-  //   }
-  // }
-
   useEffect(() => {
-    channel.bind(get_pusher_event_name(), function (data: RootObject) {
-      setMessages([...messages, data])
-    })
+    if (get_app_env() === 'production') {
+      channel.bind(get_pusher_event_name(), function (data: RootObject) {
+        setMessages([...messages, data])
+      })
+    }
 
     const chatDiv = chatRef.current.lastElementChild
 
