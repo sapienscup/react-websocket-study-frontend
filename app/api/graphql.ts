@@ -16,18 +16,18 @@ const httpLink = new HttpLink({
   uri: uri.http
 })
 
-const wsLink = new GraphQLWsLink(
-  createClient({
-    url: uri.ws
-  })
-)
+// const wsLink = new GraphQLWsLink(
+//   createClient({
+//     url: uri.ws
+//   })
+// )
 
-// const wsLink = new WebSocketLink({
-//   uri: uri.ws,
-//   options: {
-//     reconnect: true
-//   }
-// })
+const wsLink = new WebSocketLink({
+  uri: uri.ws,
+  options: {
+    reconnect: true
+  }
+})
 
 // The split function takes three parameters:
 //

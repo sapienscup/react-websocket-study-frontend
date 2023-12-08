@@ -26,7 +26,31 @@ const ListenChatMessages = () => {
   return (
     <div>
       {messages.map((e: TopicMessageType, index: number) => {
-        return <div key={index}>{e.msg}</div>
+        return (
+          <div className="flex flex-row my-3" key={`m-${index}`}>
+            <div
+              className={`elative
+                inline-flex
+                items-center
+                justify-center
+                w-10
+                h-10
+                overflow-hidden
+                bg-gray-100
+                rounded-full
+                dark:bg-gray-600
+                mx-5`}
+            >
+              <div className="font-medium text-gray-600 dark:text-gray-300">LPT</div>
+            </div>
+            <div className="grid grid-cols-1 bg-[#1E293B] max-w-md rounded-lg p-2.5 thought">
+              <div className={`text-md font-bold text-white`}>Você</div>
+              <p className="text-white antialiased" style={{ display: 'inline-block' }}>
+                {e.msg}
+              </p>
+            </div>
+          </div>
+        )
       })}
     </div>
   )
