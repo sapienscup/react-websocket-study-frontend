@@ -5,7 +5,7 @@ import { split, HttpLink } from '@apollo/client'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
-import { WebSocketLink } from '@apollo/client/link/ws'
+// import { WebSocketLink } from '@apollo/client/link/ws'
 
 const uri = {
   http: `${get_api_protocol()}://${get_api_host()}:${get_api_port()}/graphql`,
