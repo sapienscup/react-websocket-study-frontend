@@ -12,20 +12,9 @@ import {
 import { fromUnixTime } from 'date-fns'
 import Pusher from 'pusher-js'
 import { chatApiSendMsg } from '@/app/api/chat'
-import { useSubscription } from '@apollo/client'
-import SubscriptionListenMessage from '@/pages/chat/listen.gql'
-import SubscriptionWriteMessage from '@/pages/chat/write.gql'
-
-interface Sender {
-  name: string
-}
-
-interface RootObject {
-  sender: Sender
-  color: string
-  timestamp: number
-  message: string
-}
+import { ChatMessage } from '../types'
+import ListenChatMessages from './ListenChatMessages'
+import WriteChatMessage from './WriteChatMessages'
 
 class ChatMsgType {
   public static USER_TEXT: string = 'USER_TEXT'
@@ -49,7 +38,7 @@ if (get_app_env() === 'production') {
 }
 
 const Chat = () => {
-  let [messages, setMessages] = useState<RootObject[]>([])
+  let [messages, setMessages] = useState<ChatMessage[]>([])
   let chatRef = useRef<any>(null)
   let [msgText, setMsgText] = useState<string>('')
   let [isColorMuted, setIsColorMuted] = useState<boolean>(true)
@@ -57,21 +46,9 @@ const Chat = () => {
   let [connQty, setConnQty] = useState<number>(0)
   let [chatResponseLoading, setChatResponseLoading] = useState<boolean>(false)
 
-  const ListenMessages = () => {
-    const { data, loading } = useSubscription(SubscriptionListenMessage)
-
-    return !loading && data.chatRead
-  }
-
-  const WriteMessage = (msg: string) => {
-    const { data, loading } = useSubscription(SubscriptionWriteMessage, { variables: { msg } })
-
-    return !loading && data.chatWrite
-  }
-
   useEffect(() => {
     if (get_app_env() === 'production') {
-      channel.bind(get_pusher_event_name(), function (data: RootObject) {
+      channel.bind(get_pusher_event_name(), function (data: ChatMessage) {
         setMessages([...messages, data])
       })
     }
@@ -121,7 +98,7 @@ const Chat = () => {
     }
   }
 
-  const logByType = (m: any) => {
+  const changeStyleByTypeOfMessage = (m: any) => {
     if (m.type === ChatMsgType.USER_TEXT) {
       return (
         <div className="flex flex-row my-3">
@@ -183,16 +160,31 @@ const Chat = () => {
     }
   }
 
+  const chatMessagesByEnvType = () => {
+    if (get_app_env() === 'production') {
+      return (
+        <>
+          {messages.map((m: ChatMessage, index) => {
+            return <div key={`m-${index}`}>{changeStyleByTypeOfMessage(m)}</div>
+          })}
+        </>
+      )
+    } else {
+      return (
+        <>
+          <ListenChatMessages></ListenChatMessages>
+          <WriteChatMessage msg={msgText}></WriteChatMessage>
+        </>
+      )
+    }
+  }
+
   return (
     <>
       <div className="text-2xl ml-5 mb-5">Chat</div>
-      <div className="text-xs ml-5 mb-5">Connections: {connQty}</div>
       <div className="mx-5">
         <div ref={chatRef} className="dark:bg-slate-800 h-[20rem] gap-10 text-xs overflow-y-scroll scrollbar">
-          {messages.map((m: RootObject, index) => {
-            return <div key={`m-${index}`}>{logByType(m)}</div>
-          })}
-          {chatResponseLoading ? <>...</> : <></>}
+          {chatMessagesByEnvType()}
         </div>
         <div className="grid grid-rows-4 grid-flow-col gap-4 justify-items-end">
           <ChatInput
@@ -202,11 +194,7 @@ const Chat = () => {
             targetProps={msgText}
           ></ChatInput>
           <div className="absolute p-2">
-            <CustomButton
-              text="Enviar"
-              targetFunction={handleCallback}
-              targetProps={msgText}
-            ></CustomButton>
+            <CustomButton text="Enviar" targetFunction={handleCallback} targetProps={msgText}></CustomButton>
           </div>
           <div>
             <Switch value={isColorMuted} text="Mute color" targetFunction={muteNameColors}></Switch>

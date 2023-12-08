@@ -87,3 +87,14 @@ export type ModalProps = {
   post: BlogPost | undefined
   setIsOpen: (v: boolean) => void
 }
+
+export interface Sender {
+  name: string
+}
+
+export interface ChatMessage {
+  sender: Sender
+  color: string
+  timestamp: number
+  message: string
+}
