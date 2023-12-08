@@ -20,6 +20,8 @@
     "dotenv": "^16.3.1",
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.14.2",
+    "mobx": "^6.12.0",
     "next": "^14.0.3",
     "next-intl": "^3.1.4",
     "next-redux": "^0.1.1",
@@ -29,12 +31,10 @@
     "pusher-js": "^8.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^4.12.0",
     "react-loading-skeleton": "^3.3.1",
     "react-redux": "^9.0.0",
-    "recoil": "^0.7.7",
-    "redux": "^5.0.0",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-persist": "^6.0.0"
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -61,7 +61,9 @@ function CustomButton(props: CustomButtonProps) {
           group-hover:bg-opacity-0
         "
       >
-        {(text || '').toUpperCase()}
+        <div>
+          {props?.icon ? props?.icon : (text || '').toUpperCase()}
+        </div>
       </span>
     </button>
   )

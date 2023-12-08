@@ -56,9 +56,3 @@
 --french-gray: #afa9abff;
 --azure-web: #daf0f9ff;
 --english-violet: #463f6aff; */
-
-.remove-content-editable-border {
-  [contenteditable] {
-    border: 0px solid transparent;
-  }
-}

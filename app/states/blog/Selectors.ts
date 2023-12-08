@@ -1,5 +1,5 @@
 import { BlogPost } from '@/components/types'
-import { POSTS_GET_LIST, POSTS_UPDATE_LIST } from './actions'
+import { POSTS_GET_LIST, POSTS_UPDATE_LIST } from './Actions'
 
 export const postsUpdateList = (posts: BlogPost[]) => {
   return {

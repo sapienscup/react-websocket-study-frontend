@@ -1,6 +1,6 @@
 import { BlogPost } from '@/components/types'
 import { HYDRATE } from 'next-redux-wrapper'
-import { POSTS_GET_LIST, POSTS_UPDATE_LIST } from './actions'
+import { POSTS_GET_LIST, POSTS_UPDATE_LIST } from './Actions'
 
 const initialState: BlogPost[] = []
 

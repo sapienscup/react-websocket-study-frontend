@@ -1,3 +1,5 @@
+import { ReactElement } from "react"
+
 export interface Task {
   id: number
   check: boolean
@@ -20,6 +22,7 @@ export type ChatMessage = {
 
 export interface CustomButtonProps {
   text: string
+  icon?: ReactElement
   targetFunction?: (props: any) => void
   targetProps?: any
 }
@@ -63,7 +66,7 @@ export type BlogPost = {
 }
 
 export type TodoProps = {
-  task: Task,
+  task: Task
   handleChange: (todoId: number) => void
 }
 
@@ -74,8 +77,13 @@ export type Intersecting = {
 
 export interface DayTasksProps {
   id: number
-  date: date,
-  tasks: any,
+  date: date
+  tasks: any
   isLast: boolean
   adjustVirtualWindow: (boolean, number) => void
+}
+
+export type ModalProps = {
+  post: BlogPost | undefined
+  setIsOpen: (v: boolean) => void
 }

@@ -13,6 +13,9 @@ import {
 import { fromUnixTime } from 'date-fns'
 import Pusher from 'pusher-js'
 import { chatApiSendMsg } from '@/app/api/chat'
+import { useSubscription } from '@apollo/client'
+import SubscriptionListenMessage from '@/pages/chat/listen.gql'
+import SubscriptionWriteMessage from '@/pages/chat/write.gql'
 
 interface Sender {
   name: string
@@ -55,6 +58,18 @@ const Chat = () => {
   let [connQty, setConnQty] = useState<number>(0)
   let [chatResponseLoading, setChatResponseLoading] = useState<boolean>(false)
 
+  const ListenMessages = () => {
+    const { data, loading } = useSubscription(SubscriptionListenMessage)
+
+    return !loading && data.chatRead
+  }
+
+  const WriteMessage = (msg: string) => {
+    const { data, loading } = useSubscription(SubscriptionWriteMessage, { variables: { msg } })
+
+    return !loading && data.chatWrite
+  }
+
   useEffect(() => {
     if (get_app_env() === 'production') {
       channel.bind(get_pusher_event_name(), function (data: RootObject) {
@@ -79,9 +94,11 @@ const Chat = () => {
       return
     }
 
-    setChatResponseLoading(true)
-    chatApiSendMsg(msgText)
-    setChatResponseLoading(false)
+    if (get_app_env() === 'production') {
+      setChatResponseLoading(true)
+      chatApiSendMsg(msgText)
+      setChatResponseLoading(false)
+    }
 
     setMsgText('')
   }
@@ -187,7 +204,11 @@ const Chat = () => {
             targetProps={msgText}
           ></ChatInput>
           <div className="absolute p-2">
-            <CustomButton text="Enviar" targetFunction={handleCallback} targetProps={msgText}></CustomButton>
+            <CustomButton
+              text="Enviar"
+              targetFunction={handleCallback}
+              targetProps={msgText}
+            ></CustomButton>
           </div>
           <div>
             <Switch value={isColorMuted} text="Mute color" targetFunction={muteNameColors}></Switch>
