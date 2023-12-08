@@ -185,6 +185,7 @@ const Chat = () => {
       <div className="mx-5">
         <div ref={chatRef} className="dark:bg-slate-800 h-[20rem] gap-10 text-xs overflow-y-scroll scrollbar">
           {chatMessagesByEnvType()}
+          {chatResponseLoading && <div>Loading msg...</div>}
         </div>
         <div className="grid grid-rows-4 grid-flow-col gap-4 justify-items-end">
           <ChatInput
