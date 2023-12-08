@@ -1,6 +1,5 @@
 import CustomButton from '@/components/atoms/CustomButton'
 import { useEffect, useRef, useState } from 'react'
-// import { chatListen, chatWrite } from '@/app/api/sockets'
 import ChatInput from '@/components/atoms/ChatInput'
 import Switch from '@/components/atoms/Switch'
 import {
@@ -153,7 +152,6 @@ const Chat = () => {
               dangerouslySetInnerHTML={emojifyMsg(m.message)}
             ></p>
           </div>
-          {/* <div className="text-xs text-indigo-400">{fromUnixTime(m.timestamp / 1000).toLocaleString()}</div> */}
         </div>
       )
     } else if (m.type === ChatMsgType.GLOBAL_SYNCHRONIZATION) {
