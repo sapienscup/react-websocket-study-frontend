@@ -16,7 +16,6 @@ const Todos: NextPageWithLayout = () => {
         <div className="text-2xl ml-5 mb-5">Configurações</div>
         <div className="ml-5">
           <ThemeSwitch></ThemeSwitch>
-          {/* <ThemeChanger></ThemeChanger> */}
         </div>
       </div>
       <div>
