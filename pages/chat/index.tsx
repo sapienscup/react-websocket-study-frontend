@@ -1,5 +1,3 @@
-'use client'
-
 import { type ReactElement } from 'react'
 import Layout from '@/app/layout'
 import type { NextPageWithLayout } from '@/pages/_app'
