@@ -1,7 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useRef, useState } from 'react'
-import Loading from '../atoms/Loading'
+import { useEffect, useRef, useState } from 'react'
 
 function TwoColumnGrid(props: any) {
   const { navigator, features } = props.children
