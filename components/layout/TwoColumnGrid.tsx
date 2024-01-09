@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import NavigationDrawer from './NavigationDrawer'
 
 function TwoColumnGrid(props: any) {
   const { navigator, features } = props.children
@@ -22,11 +23,9 @@ function TwoColumnGrid(props: any) {
 
   return (
     <div ref={ref} className={layout}>
-      <div className="border h-fit mt-5 py-5 rounded-lg drop-shadow-lg">{navigator}</div>
+      <NavigationDrawer navigator={navigator}></NavigationDrawer>
 
-      <div className="border h-full my-5 py-5 rounded-lg drop-shadow-lg">
-        {features}
-      </div>
+      <div className="border h-full my-5 py-5 rounded-lg drop-shadow-lg">{features}</div>
     </div>
   )
 }

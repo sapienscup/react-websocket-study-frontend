@@ -5,7 +5,7 @@ import CustomButton from './atoms/CustomButton'
 
 function PageNavigator() {
   return (
-    <div className="grid grid-flow-col-dense ml-5">
+    <div className="grid grid-flow-row-dense gap-5 mx-5">
       <div className='w-40 h-7'>
         <Link href="/profile">
           <CustomButton text={'perfil'}></CustomButton>
